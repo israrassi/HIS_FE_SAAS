@@ -1,0 +1,313 @@
+<div class="" [ngClass]="{'page-wrapper':pageSetup.showNavs}">
+    <div class="content">
+        <div class="page-header" *ngIf="pageSetup.showNavs">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a>Patient </a></li>
+                        <li class="breadcrumb-item"><i class="feather icon-chevron-right"></i></li>
+                        <li class="breadcrumb-item active">Add Patient</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row" *ngIf="pageSetup.view == 'full'">
+                            <div class="col-12">
+                                <div class="form-heading">
+                                    <h4>Patient Details</h4>
+                                </div>
+                            </div>
+                            <div class="sub_card my-2">
+                                <div class="title">
+                                    <h4>Main Info</h4>
+                                </div>
+                                <div class="content row">
+                                    <ng-container *ngTemplateOutlet="mainInfoFields"></ng-container>
+                                </div>
+                            </div>
+                            <div class="sub_card my-2">
+                                <div class="title">
+                                    <h4>Personal Information</h4>
+                                    <div class="subTitle" *ngIf="modal.age">
+                                        <ng-container *ngTemplateOutlet="ageField"></ng-container>
+                                    </div>
+                                </div>
+                                <div class="content row">
+                                    <ng-container *ngTemplateOutlet="personalInfoFields"></ng-container>
+                                </div>
+                            </div>
+
+                            <div class="sub_card my-2">
+                                <div class="title">
+                                    <h4>Contact Information</h4>
+                                </div>
+                                <div class="content row">
+                                    <ng-container *ngTemplateOutlet="contactInfoFields"></ng-container>
+                                </div>
+                            </div>
+
+
+                            <div class="sub_card my-2">
+                                <div class="title">
+                                    <h4>Account Information</h4>
+                                </div>
+                                <div class="content row">
+                                    <ng-container *ngTemplateOutlet="accountInfoFields"></ng-container>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-12" *ngIf="pageSetup.showButtons">
+                                <div class="doctor-submit text-end">
+                                    <button type="submit" class="btn btn-primary submit-form me-2" (click)="save()">{{Id
+                                        ? 'Save' : 'Add'}}</button>
+                                    <button type="submit" class="btn btn-primary cancel-form"
+                                        (click)="back()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" *ngIf="pageSetup.view == 'quick'">
+                            <div class="col-12">
+                                <div class="form-heading">
+                                    <h4>Patient Details</h4>
+                                </div>
+                            </div>
+
+
+                            <div class="content row">
+                                <ng-container *ngTemplateOutlet="mainInfoFields"></ng-container>
+                                <ng-container *ngTemplateOutlet="personalInfoFields"></ng-container>
+                                <ng-container *ngTemplateOutlet="contactInfoFields"></ng-container>
+                                <ng-container *ngTemplateOutlet="accountInfoFields"></ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #ageField>
+    Age : <span>{{modal.age}}</span>
+</ng-template>
+
+<ng-template #mainInfoFields>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['id']">
+        <div class="form-group local-forms">
+            <label for="name">Id </label>
+            <input class="form-control" type="text" [(ngModel)]="modal.id" disabled>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['manualUserId']">
+        <div class="form-group local-forms">
+            <label for="name">Manual Id </label>
+            <input class="form-control" type="text" [(ngModel)]="modal.manualUserId">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-6"></div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['nameEn1']">
+        <div class="form-group local-forms">
+            <label>Name(En) 1<span class="login-danger">*</span></label>
+            <input class="form-control" type="text" [(ngModel)]="modal.nameEn1">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['nameEn2']">
+        <div class="form-group local-forms">
+            <label>Name(En) 2</label>
+            <input class="form-control" type="text" [(ngModel)]="modal.nameEn2">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['nameEn3']">
+        <div class="form-group local-forms">
+            <label>Name(En) 3</label>
+            <input class="form-control" type="text" [(ngModel)]="modal.nameEn3">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['nameEn4']">
+        <div class="form-group local-forms">
+            <label>Name(En) 4<span class="login-danger">*</span></label>
+            <input class="form-control" type="text" [(ngModel)]="modal.nameEn4">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['nameAr1']">
+        <div class="form-group local-forms">
+            <label>Name(Ar) 1<span class="login-danger">*</span></label>
+            <input class="form-control" type="text" [(ngModel)]="modal.nameAr1">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['nameAr2']">
+        <div class="form-group local-forms">
+            <label>Name(Ar) 2</label>
+            <input class="form-control" type="text" [(ngModel)]="modal.nameAr2">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['nameAr3']">
+        <div class="form-group local-forms">
+            <label>Name(Ar) 3</label>
+            <input class="form-control" type="text" [(ngModel)]="modal.nameAr3">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['nameAr4']">
+        <div class="form-group local-forms">
+            <label>Name(Ar) 4<span class="login-danger">*</span></label>
+            <input class="form-control" type="text" [(ngModel)]="modal.nameAr4">
+        </div>
+    </div>
+</ng-template>
+
+
+
+<ng-template #personalInfoFields>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['idNumber']">
+        <div class="form-group local-forms">
+            <label>Identity </label>
+            <input class="form-control" type="text" [(ngModel)]="modal.idNumber">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['addressAr']">
+        <div class="form-group local-forms">
+            <label>Address Ar </label>
+            <input class="form-control" type="text" [(ngModel)]="modal.addressAr">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['addressEn']">
+        <div class="form-group local-forms">
+            <label>Address En</label>
+            <input class="form-control" type="text" [(ngModel)]="modal.addressEn">
+        </div>
+    </div>
+
+
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['birthDate']">
+        <div class="form-group local-forms">
+            <label>Birth Date </label>
+            <input class="form-control" type="date" [(ngModel)]="modal.birthDate" (ngModelChange)="birthDateChanged()">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['genderId']">
+        <div class="form-group local-forms">
+            <label for="gender" class="gen-label">Gender</label>
+            <ng-select class="form-control" [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                bindValue="value" [(ngModel)]="modal.genderId">
+            </ng-select>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['stateId']">
+        <div class="form-group local-forms">
+            <label for="gender" class="gen-label">State</label>
+            <ng-select class="form-control" [items]="lstInventoryLookupsByKey['States']" bindLabel="label"
+                bindValue="value" [(ngModel)]="modal.stateId">
+            </ng-select>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['countryId']">
+        <div class="form-group local-forms">
+            <label for="gender" class="gen-label">Country</label>
+            <ng-select class="form-control" [items]="lstInventoryLookupsByKey['Countries']" bindLabel="label"
+                bindValue="value" [(ngModel)]="modal.countryId">
+            </ng-select>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['cityId']">
+        <div class="form-group local-forms">
+            <label for="gender" class="gen-label">City</label>
+            <ng-select class="form-control" [items]="lstInventoryLookupsByKey['Cities']" bindLabel="label"
+                bindValue="value" [(ngModel)]="modal.cityId">
+            </ng-select>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #contactInfoFields>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['phone1']">
+        <div class="form-group local-forms">
+            <label>Phone 1 <span class="login-danger">*</span></label>
+            <input class="form-control" type="text" [(ngModel)]="modal.phone1">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['phone2']">
+        <div class="form-group local-forms">
+            <label>Phone 2 </label>
+            <input class="form-control" type="text" [(ngModel)]="modal.phone2">
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['email']">
+        <div class="form-group local-forms">
+            <label>Email </label>
+            <input class="form-control" type="text" [(ngModel)]="modal.email">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['tel1']">
+        <div class="form-group local-forms">
+            <label>Tel 1</label>
+            <input class="form-control" type="text" [(ngModel)]="modal.tel1">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['tel2']">
+        <div class="form-group local-forms">
+            <label>Tel 2 </label>
+            <input class="form-control" type="text" [(ngModel)]="modal.tel2">
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['website']">
+        <div class="form-group local-forms">
+            <label>Website</label>
+            <input class="form-control" type="text" [(ngModel)]="modal.website">
+        </div>
+    </div>
+</ng-template>
+
+
+
+<ng-template #accountInfoFields>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['isActive']">
+        <div class="form-group select-gender">
+            <label for="Status" class="gen-label">Status <span class="login-danger">*</span></label>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input type="radio" name="gender" class="form-check-input" value="true"
+                        [(ngModel)]="modal.isActive">Active
+                </label>
+            </div>
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input type="radio" name="gender" class="form-check-input" value="false"
+                        [(ngModel)]="modal.isActive">In Active
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="pageSetup.lstFieldsToShow['allowToLogin']">
+        <div class="form-group local-forms">
+            <div class="form-check check-tables">
+                <input id="atl" type="checkbox" class="form-check-input" [(ngModel)]="modal.allowToLogin">
+                <label for="atl">Allow to login </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="modal.allowToLogin && pageSetup.lstFieldsToShow['userName']">
+        <div class="form-group local-forms">
+            <label>User Name </label>
+            <input class="form-control" type="text" [(ngModel)]="modal.userName">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-xl-3" *ngIf="modal.allowToLogin && pageSetup.lstFieldsToShow['password']">
+        <div class="form-group local-forms">
+            <label>Password</label>
+            <input class="form-control" type="password" [(ngModel)]="modal.password">
+        </div>
+    </div>
+</ng-template>

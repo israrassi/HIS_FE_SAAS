@@ -1,0 +1,148 @@
+<div class="page-wrapper">
+    <div class="content">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a>System </a></li>
+                        <li class="breadcrumb-item"><i class="feather icon-chevron-right"></i></li>
+                        <li class="breadcrumb-item active">Doctors</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="card card-table show-entire">
+                    <div class="card-body">
+
+                        <!-- Table Header -->
+                        <div class="page-table-header mb-2">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="doctor-table-blk">
+                                        <h3>Doctors List</h3>
+                                        <div class="doctor-search-blk">
+                                            <div class="top-nav-search table-search-blk">
+
+                                                <input type="text" class="form-control" placeholder="Search here"
+                                                    [formControl]="searchStrFilter">
+                                                <a class="btn"><img src="assets/img/icons/search-normal.svg" alt=""></a>
+
+                                            </div>
+                                            <div class="add-group">
+                                                <a class="btn btn-primary add-pluss ms-2" (click)="addEditObj()"><img
+                                                        src="assets/img/icons/plus.svg" alt=""></a>
+                                                <a class="btn btn-primary doctor-refresh ms-2"><img
+                                                        src="assets/img/icons/re-fresh.svg" alt=""></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto text-end float-end ms-auto download-grp">
+                                    <a class=" me-2"><img src="assets/img/icons/pdf-icon-01.svg" alt=""></a>
+                                    <a class=" me-2"><img src="assets/img/icons/pdf-icon-02.svg" alt=""></a>
+                                    <a class=" me-2"><img src="assets/img/icons/pdf-icon-03.svg" alt=""></a>
+                                    <a><img src="assets/img/icons/pdf-icon-04.svg" alt=""></a>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Table Header -->
+                        <div class="staff-search-table">
+                            <form>
+                                <div class="row">
+                                    <div class="col-12 col-md-6 col-xl-4">
+                                        <div class="form-group local-forms">
+                                            <label for="employee">Filters.. </label>
+                                            <input class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-xl-4">
+                                        <div class="form-group local-forms">
+                                            <label for="employee">Filters.. </label>
+                                            <input class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-xl-4">
+                                        <div class="form-group local-forms">
+                                            <label for="employee">Active Status </label>
+                                            <ng-select class="form-control"
+                                                [items]="lstInventoryLookupsByKey['ActiveStatus']" bindLabel="label"
+                                                bindValue="value" [formControl]="activeStatusFilter"
+                                                [clearable]="false">
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-12 col-md-6 col-xl-4">
+                                        <div class="doctor-submit">
+                                            <button type="submit"
+                                                class="btn btn-primary submit-list-form me-2">Search</button>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table matSort class="table border-0 custom-table comman-table datatable mb-0">
+                                <thead>
+                                    <tr>
+                                        <th mat-sort-header="Id">Id</th>
+                                        <th mat-sort-header="userNameEn">User Name En</th>
+                                        <th mat-sort-header="userNameAr">User Name Ar</th>
+                                        <th mat-sort-header="phone_tel">Phone/Tel</th>
+                                        <th mat-sort-header="address">Address</th>
+                                        <th mat-sort-header="email">Email</th>
+                                        <th mat-sort-header="active">Active</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        *ngFor="let r of lstData| paginate: {id:paggingManager.id, itemsPerPage: paggingManager.itemsPerPage, currentPage: paggingManager.currentPage, totalItems: paggingManager.totalItems }">
+                                        <td>{{r.id}}</td>
+                                        <td>{{r.nameEn}}</td>
+                                        <td>{{r.nameAr}}</td>
+                                        <td>{{r.phone1 + ' ' + (r.tel1 ? '-' + r.tel1 : '') }}</td>
+                                        <td>{{r.addressEn + ' ' + (r.addressAr ? '-' + r.addressAr : '') }}</td>
+                                        <td>{{r.email }}</td>
+                                        <td>
+                                            <a class="custom-badge status-green" *ngIf="r.isActive">Active</a>
+                                            <a class="custom-badge status-pink" *ngIf="!r.isActive">Disabled</a>
+                                        </td>
+                                        <td class="text-end">
+                                            <div class="dropdown dropdown-action">
+                                                <a class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
+                                                    aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" (click)="addEditObj(r.id)"><i
+                                                            class="fa-solid fa-pen-to-square m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item" data-bs-toggle="modal"
+                                                        data-bs-target="#delete_patient"><i
+                                                            class="fa fa-trash-alt m-r-5"></i> Delete</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="t-ftr">
+                                <pagination-controls id="x" (pageChange)="pageChanged($event)"
+                                    (pageBoundsCorrection)="pageChanged($event)" [maxSize]="5" [directionLinks]="true"
+                                    [responsive]="true" screenReaderPaginationLabel="Pagination" class="my-pagination"
+                                    [previousLabel]="''" [nextLabel]="''">
+                                </pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,234 @@
+<div class="page-wrapper">
+    <div class="content">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a>Doctors </a></li>
+                        <li class="breadcrumb-item"><i class="feather icon-chevron-right"></i></li>
+                        <li class="breadcrumb-item active">Add Doctor</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-heading">
+                                    <h4>Doctor Details</h4>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label for="name">Id </label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.id" disabled>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label for="name">Manual Id </label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.manualUserId">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-6"></div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Name(En) 1<span class="login-danger">*</span></label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.nameEn1">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Name(En) 2</label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.nameEn2">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Name(En) 3</label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.nameEn3">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Name(En) 4<span class="login-danger">*</span></label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.nameEn4">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Name(Ar) 1<span class="login-danger">*</span></label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.nameAr1">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Name(Ar) 2</label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.nameAr2">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Name(Ar) 3</label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.nameAr3">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Name(Ar) 4<span class="login-danger">*</span></label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.nameAr4">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Phone 1 <span class="login-danger">*</span></label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.phone1">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Phone 2 </label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.phone2">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Tel 1</label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.tel1">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Tel 2 </label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.tel2">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Email </label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.email">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Identity </label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.idNumber">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Website</label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.website">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Address Ar </label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.addressAr">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Address En</label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.addressEn">
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label>Birth Date </label>
+                                    <input class="form-control" type="date" [(ngModel)]="modal.birthDate">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label for="gender" class="gen-label">Gender</label>
+                                    <ng-select class="form-control" [items]="lstInventoryLookupsByKey['Gender']"
+                                        bindLabel="label" bindValue="value" [(ngModel)]="modal.genderId">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label for="gender" class="gen-label">Branches</label>
+                                    <ng-select class="form-control" [items]="lstInventoryLookupsByKey['Branches']"
+                                        [multiple]="true" bindLabel="label" bindValue="value"
+                                        [(ngModel)]="modal._lstUserBranches">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label for="gender" class="gen-label">Departments</label>
+                                    <ng-select class="form-control" [items]="lstInventoryLookupsByKey['Departments']"
+                                        [multiple]="true" bindLabel="label" bindValue="value"
+                                        [(ngModel)]="modal._lstUserDepartments">
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-xl-6">
+                                <div class="form-group select-gender">
+                                    <label for="Status" class="gen-label">Status <span
+                                            class="login-danger">*</span></label>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" name="gender" class="form-check-input" value="true"
+                                                [(ngModel)]="modal.isActive">Active
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" name="gender" class="form-check-input" value="false"
+                                                [(ngModel)]="modal.isActive">In Active
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <div class="form-check check-tables">
+                                        <input id="atl" type="checkbox" class="form-check-input"
+                                            [(ngModel)]="modal.allowToLogin">
+                                        <label for="atl">Allow to login </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3" *ngIf="modal.allowToLogin">
+                                <div class="form-group local-forms">
+                                    <label>User Name </label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.userName">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3" *ngIf="modal.allowToLogin">
+                                <div class="form-group local-forms">
+                                    <label>Password</label>
+                                    <input class="form-control" type="password" [(ngModel)]="modal.password">
+                                </div>
+                            </div>
+
+
+                            <div class="col-12">
+                                <div class="doctor-submit text-end">
+                                    <button type="submit" class="btn btn-primary submit-form me-2" (click)="save()">{{Id
+                                        ? 'Save' : 'Add'}}</button>
+                                    <button type="submit" class="btn btn-primary cancel-form"
+                                        (click)="back()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

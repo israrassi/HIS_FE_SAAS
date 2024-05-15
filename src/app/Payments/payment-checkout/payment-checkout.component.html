@@ -1,0 +1,167 @@
+<div class="page-wrapper">
+    <div class="content">
+
+        <!-- <h1>Checkout</h1>
+        <div id="errors-output" role="alert"></div>
+        <form action="/token" id="fillableForm" method="post">
+            <div class="form-group">
+                <label for="cardholderName">Name</label>
+                <input id="cardholderName" class="form-control" name="cardholderName" placeholder="Name on the card">
+                <label id="cardNumber-label">Card Number</label>
+                <div id="number-container" class="form-control"></div>
+                <label for="securityCode-container">Security Code</label>
+                <div id="securityCode-container" class="form-control"></div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="expMonth">Expiry month</label>
+                    <select id="expMonth" class="form-control">
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                        <option>04</option>
+                        <option>05</option>
+                        <option>06</option>
+                        <option>07</option>
+                        <option>08</option>
+                        <option>09</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="expYear">Expiry year</label>
+                    <select id="expYear" class="form-control">
+                        <option>2021</option>
+                        <option>2022</option>
+                        <option>2023</option>
+                        <option>2025</option>
+                        <option>2026</option>
+                        <option>2027</option>
+                        <option selected>2028</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="button" id="pay-button" class="btn btn-primary">Pay</button>
+            <input type="hidden" id="flexresponse" name="flexresponse">
+        </form> -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a>Payment </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+
+                <form class="card" action="/token" id="fillableForm" method="post">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-heading">
+                                    <h4>Payment</h4>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-6">
+                                <!-- <div class="form-group local-forms">
+                                    <label>Amount<span class="login-danger">*</span></label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.amount">
+                                </div> -->
+                                <div class="form-group local-forms">
+                                    <label>Card Number<span class="login-danger">*</span></label>
+                                    <div id="number-container" class="form-control"></div>
+                                    <!-- <input class="form-control" type="text" [(ngModel)]="modal.cartNumber"> -->
+                                </div>
+                                <div class="form-group local-forms">
+                                    <label>CVV<span class="login-danger">*</span></label>
+                                    <div id="securityCode-container" class="form-control"></div>
+                                    <!-- <input class="form-control" type="text" [(ngModel)]="modal.cvv"> -->
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-12"></div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label for="gender" class="gen-label">Exprie Month</label>
+                                    <!-- <ng-select class="form-control" [items]="lstExpireMonths" bindLabel="label"
+                                        bindValue="value" [(ngModel)]="modal.expireMonth">
+                                    </ng-select> -->
+
+
+
+                                    <select id="expMonth" class="form-control">
+                                        <option *ngFor="let r of lstExpireMonths">{{r.label}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <div class="form-group local-forms">
+                                    <label for="gender" class="gen-label">Exprie Year</label>
+                                    <!-- <ng-select class="form-control" [items]="lstExpireYears" bindLabel="label"
+                                        bindValue="value" [(ngModel)]="modal.expireYear">
+                                    </ng-select> -->
+
+                                    <select id="expYear" class="form-control">
+                                        <option *ngFor="let r of lstExpireYears">{{r.label}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- <button type="button" id="pay-button" class="btn btn-primary">Pay</button> -->
+                            <input type="hidden" id="flexresponse" name="flexresponse">
+
+                            <div class="col-12">
+                                <div class="doctor-submit text-end">
+                                    <!-- <button type="submit" class="btn btn-primary submit-form me-2"
+                                        (click)="CreatePayment()" >Create Payment</button> -->
+                                        <button (click)="payWithSavedToken()">payWithSavedToken</button>
+                                    <button type="submit" class="btn btn-primary submit-form me-2"
+                                        id="pay-button">Pay</button>
+
+                                    <!-- <button type="submit" class="btn btn-primary submit-form me-2"
+                                        (click)="GenerateCaptureContext()">GenerateCaptureContext</button> -->
+                                    <!-- <button type="submit" class="btn btn-primary submit-form me-2"
+                                        (click)="SetupCompletionWithFlexTransientToken()">Setup</button>
+                                    <button type="submit" class="btn btn-primary submit-form me-2"
+                                        (click)="EnrollWithTransientToken()">Enroll</button> -->
+                                    <button type="submit" class="btn btn-primary submit-form me-2"
+                                        (click)="ValidateAuthenticationResults()">Validate</button>
+                                    <button type="submit" class="btn btn-primary submit-form me-2"
+                                        (click)="CreatePayment()">Capture Payment</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<iframe id="cardinal_collection_iframe" name="collectionIframe" height="10" width="10" style="display: none;"></iframe>
+<form *ngIf="modal && modal['consumerAuthenticationInformation']" id="cardinal_collection_form" method="POST"
+    target="collectionIframe" [action]="modal['consumerAuthenticationInformation'].deviceDataCollectionUrl">
+    <input id="cardinal_collection_form_input" type="hidden" name="JWT"
+        [value]="modal['consumerAuthenticationInformation'].accessToken">
+</form>
+
+
+
+<div class="w-100 d-flex justify-content-center">
+    <ng-container *ngIf="modal['cai_Enroll']">
+        <iframe name="step-up-iframe" [height]="modal['cai_Enroll']['setupUp_Window'].s.h" id="step-up-iframe"
+            [width]="modal['cai_Enroll']['setupUp_Window'].s.w"  (load)="frameRedirected($event)"></iframe>
+        <form id="step-up-form" target="step-up-iframe" method="post" [action]="modal['cai_Enroll'].stepUpUrl">
+            <input type="hidden" name="JWT" [value]="modal['cai_Enroll'].accessToken" />
+            <input type="hidden" name="MD" [value]="paymentTransModel['id']" />
+        </form>
+    </ng-container>
+</div>

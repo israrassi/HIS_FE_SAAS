@@ -1,0 +1,394 @@
+<div class="page-wrapper visit-cu">
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="d-flex justify-content-between">
+                            <h4>Visit </h4>
+
+                            <div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-success " (click)="openAddQuickPatient()">
+                                    Add Quick Patient
+                                </button>
+                                <button type="submit" class="btn btn-success mx-1">
+                                    Add Patient
+                                </button>
+                            </div>
+
+                            <div class="w-100">
+                                <hr>
+                            </div>
+
+                            <ng-container>
+
+
+                                <div class="row" *ngIf="selectedPatient && selectedPatient['details']">
+                                    <div class="col-2">
+                                        <h4>Patient Info: </h4>
+                                    </div>
+                                    <div class="col-9 row">
+                                        <div class="col-4">
+                                            <div class="b-1">
+                                                <p class="pr-1">MRN :</p>
+                                                <p class="pr-2">{{selectedPatient['details'].manualUserId}}</p>
+                                            </div>
+                                            <div class="b-1">
+                                                <p class="pr-1">Name :</p>
+                                                <p class="pr-2">{{selectedPatient['details'].nameEn}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <div class="b-1">
+                                                <p class="pr-1">Birth Date :</p>
+                                                <p class="pr-2">{{selectedPatient['details'].birthDate}}</p>
+                                            </div>
+                                            <div class="b-1">
+                                                <p class="pr-1">Age :</p>
+                                                <p class="pr-2">{{selectedPatient['details'].age}}</p>
+                                            </div>
+                                            <div class="b-1">
+                                                <p class="pr-1">Gender :</p>
+                                                <p class="pr-2">{{selectedPatient['details'].genderNameEn}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="b-1">
+                                                <p class="pr-1">Identity :</p>
+                                                <p class="pr-2">{{selectedPatient['details'].nationalityId}}</p>
+                                            </div>
+                                            <div class="b-1">
+                                                <p class="pr-1">Mobile :</p>
+                                                <p class="pr-2">{{selectedPatient['details'].phone1}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Header -->
+
+        <!-- /Page Header -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="invoice-faq">
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="faq-tab p-0">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingTwo">
+                                            <p class="panel-title">
+                                                <a class="collapsed" data-bs-toggle="collapse"
+                                                    style="color: black !important;" data-bs-parent="#accordion"
+                                                    href="#collapseTwo" aria-expanded="false"
+                                                    aria-controls="collapseTwo">
+                                                    Select Patient For New Visit
+                                                </a>
+                                            </p>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                                            aria-labelledby="headingTwo" data-bs-parent="#accordion">
+                                            <div class="accordion-content">
+                                                <div class="doctor-search-blk">
+                                                    <div class="top-nav-search table-search-blk">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Search here"
+                                                            [formControl]="patientSearchFilter">
+                                                        <a class="btn">
+                                                            <img src="assets/img/icons/search-normal.svg" alt="">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="table-wrap">
+                                                    <table matSort
+                                                        class="table border-0 custom-table comman-table datatable mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th mat-sort-header="mrn">MRN</th>
+                                                                <th mat-sort-header="name">Name</th>
+                                                                <th mat-sort-header="natinality">Natinality</th>
+                                                                <th mat-sort-header="gender">Gender</th>
+                                                                <th mat-sort-header="phone">Phone</th>
+                                                                <th mat-sort-header="tel">Tel</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let r of lstPatients;let i= index"
+                                                                (click)="selecPatient(r)"
+                                                                [ngClass]="{'active':r==selectedPatient}">
+                                                                <td>{{r.manualUserId}}</td>
+                                                                <td>{{r.patientNameEn}}</td>
+                                                                <td>{{r.nationalityNameEn}}</td>
+                                                                <td>{{r.genderNameEn}}</td>
+                                                                <td>{{r.phone1}}</td>
+                                                                <td>{{r.tel1}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="faq-tab">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingThree">
+                                            <p class="panel-title">
+                                                <a class="collapsed" data-bs-toggle="collapse"
+                                                    style="color: black !important;" data-bs-parent="#accordion"
+                                                    href="#collapseThree" aria-expanded="false"
+                                                    aria-controls="collapseThree">
+                                                    Patients List V2
+                                                </a>
+                                            </p>
+                                        </div>
+                                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                                            aria-labelledby="headingThree" data-bs-parent="#accordion">
+                                            <div class="panel-body">
+                                                CONTENT2
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Visit Details</h4>
+                                <hr>
+                                <div class="row d-flex justify-content-between">
+                                    <div class="col-6 row">
+                                        <div class="col-6">
+                                            <div class="form-group local-forms">
+                                                <label>Visit Id</label>
+                                                <input class="form-control" type="text" [(ngModel)]="modal.addressEn">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group local-forms">
+                                                <label for="gender" class="gen-label">Status</label>
+                                                <ng-select class="form-control"
+                                                    [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                                                    bindValue="value" [(ngModel)]="modal.genderId">
+                                                </ng-select>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div class="form-group local-forms">
+                                                <label for="gender" class="gen-label">Visit Type</label>
+                                                <ng-select class="form-control"
+                                                    [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                                                    bindValue="value" [(ngModel)]="modal.genderId">
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group local-forms">
+                                                <label for="gender" class="gen-label">Department</label>
+                                                <ng-select class="form-control"
+                                                    [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                                                    bindValue="value" [(ngModel)]="modal.genderId">
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group local-forms">
+                                                <label for="gender" class="gen-label">Doctor</label>
+                                                <ng-select class="form-control"
+                                                    [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                                                    bindValue="value" [(ngModel)]="modal.genderId">
+                                                </ng-select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form-group local-forms">
+                                                <label>Visit SubType</label>
+                                                <input class="form-control" type="text" [(ngModel)]="modal.addressEn">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group local-forms">
+                                                <label for="gender" class="gen-label"></label>
+                                                <ng-select class="form-control"
+                                                    [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                                                    bindValue="value" [(ngModel)]="modal.genderId">
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group local-forms">
+                                                <label for="gender" class="gen-label">Treatment Plan</label>
+                                                <ng-select class="form-control"
+                                                    [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                                                    bindValue="value" [(ngModel)]="modal.genderId">
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group local-forms">
+                                                <label for="gender" class="gen-label">Arrival Type</label>
+                                                <ng-select class="form-control"
+                                                    [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                                                    bindValue="value" [(ngModel)]="modal.genderId">
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group local-forms">
+                                                <label for="gender" class="gen-label">Visit Mode</label>
+                                                <ng-select class="form-control"
+                                                    [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                                                    bindValue="value" [(ngModel)]="modal.genderId">
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group local-forms">
+                                                <label for="gender" class="gen-label">Visit Mode Note</label>
+                                                <input class="form-control" type="text" [(ngModel)]="modal.birthDate">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group local-forms">
+                                                <label for="gender" class="gen-label">Urgent Level</label>
+                                                <ng-select class="form-control"
+                                                    [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                                                    bindValue="value" [(ngModel)]="modal.genderId">
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group local-forms">
+                                                <label>Note </label>
+                                                <textarea class="form-control" rows="3"
+                                                    [(ngModel)]="modal.birthDate"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-5">
+                                        <div class=" row">
+                                            <div>
+                                                <div class="form-group local-forms">
+                                                    <label>Coverage Type</label>
+                                                    <input class="form-control" type="text"
+                                                        [(ngModel)]="modal.addressEn">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="form-group local-forms">
+                                                    <label for="gender" class="gen-label">Coverage</label>
+                                                    <ng-select class="form-control"
+                                                        [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                                                        bindValue="value" [(ngModel)]="modal.genderId">
+                                                    </ng-select>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="form-group local-forms">
+                                                    <label for="gender" class="gen-label">Plan</label>
+                                                    <ng-select class="form-control"
+                                                        [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                                                        bindValue="value" [(ngModel)]="modal.genderId">
+                                                    </ng-select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="form-group local-forms">
+                                                    <label>Coverage Number</label>
+                                                    <input class="form-control" type="text"
+                                                        [(ngModel)]="modal.addressEn">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group local-forms">
+                                                    <label>Percentage</label>
+                                                    <input class="form-control" type="text"
+                                                        [(ngModel)]="modal.addressEn">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group local-forms">
+                                                    <label>From Date</label>
+                                                    <input class="form-control" type="text"
+                                                        [(ngModel)]="modal.addressEn">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group local-forms">
+                                                    <label>To Date</label>
+                                                    <input class="form-control" type="text"
+                                                        [(ngModel)]="modal.addressEn">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="form-group local-forms">
+                                                    <label for="gender" class="gen-label">Referred From</label>
+                                                    <ng-select class="form-control"
+                                                        [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                                                        bindValue="value" [(ngModel)]="modal.genderId">
+                                                    </ng-select>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="form-group local-forms">
+                                                    <label for="gender" class="gen-label">Patient Company</label>
+                                                    <ng-select class="form-control"
+                                                        [items]="lstInventoryLookupsByKey['Gender']" bindLabel="label"
+                                                        bindValue="value" [(ngModel)]="modal.genderId">
+                                                    </ng-select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<ng-template #addQuickPatient>
+    <div class="modal-header modal-xl">
+        <h4 class="modal-title pull-left">New Patient</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close"
+            (click)="closeAddQuickPatient()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div>
+        <app-add-patients [pageSetup]="patientPageSetup" [makeSubmit]="makeSubmit"
+            (saveSubmitted)="SubmitOutputEvent_AddQuickPatient($event)"></app-add-patients>
+        <div class="modal-footer">
+            <button class="btn btn-danger" (click)="closeAddQuickPatient()">Close</button>
+            <button class="btn btn-primary" (click)="makeSubmitEvent_AddQuickPatient()">Submit</button>
+        </div>
+    </div>
+</ng-template>

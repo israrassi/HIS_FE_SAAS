@@ -1,0 +1,351 @@
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-12 col-12">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a>Dashboard </a></li>
+                    <li class="breadcrumb-item"><i class="feather icon-chevron-right"></i></li>
+                    <li class="breadcrumb-item active">Appointment Calendar</li>
+                </ul>
+            </div>
+            <div class="col-sm-4 col-12 w-100 m-b-30 d-flex justify-content-between">
+                <div class="w-75 d-flex justify-content-between">
+                    <div class="form-group local-forms frm-filter">
+                        <ng-select class="form-control w-100" [items]="lstInventoryLookupsByKey['Branches']"
+                            [(ngModel)]="pageSetup.selectedBranchId" bindLabel="label" placeholder="Select Branch"
+                            bindValue="value" (ngModelChange)="selectedBranchChanged()">
+                        </ng-select>
+                    </div>
+                    <div class="form-group local-forms frm-filter">
+                        <ng-select class="form-control w-100" [items]="lstInventoryLookupsByKey['Departments']"
+                            [(ngModel)]="pageSetup.departmentId" bindLabel="label" placeholder="Select Department"
+                            bindValue="value" (ngModelChange)="MasterDepartmentChanged(true)">
+                        </ng-select>
+                    </div>
+                    <div class="form-group local-forms frm-filter">
+                        <ng-select class="form-control w-100" [items]="lstInventoryLookupsByKey['lstMasterDoctors']"
+                            [(ngModel)]="pageSetup.doctorId" bindLabel="label" placeholder="Select Doctor"
+                            bindValue="value" (ngModelChange)="AppointmentSearch()">
+                        </ng-select>
+                    </div>
+                </div>
+
+                <div>
+                    <a class="btn btn-primary" (click)="AddAppointment()"><i class="fa fa-plus"></i> Add Appointment</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-box mb-0">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="full-cal" id="calendar" *ngIf="options">
+                                <!-- 
+                                    (hourSegmentClicked)="createBooking($event)" (userChanged)="userChanged($event)"
+                                    (eventClicked)="eventClicked($event)" [hourSegmentHeight]="50" -->
+                                <!-- <mwl-day-view-scheduler [viewDate]="viewDate"
+                                    [users]="lstInventoryLookupsByKey['lstMasterDoctors']" [events]="calendarEvents">
+                                </mwl-day-view-scheduler> -->
+                                <full-calendar [options]="options" [events]="calendarEvents"
+                                    #fullcalendar></full-calendar>
+                                <!-- <full-calendar [options]="options" [events]="calendarEvents"
+                                    #fullcalendar></full-calendar> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<ng-template #addAppointment>
+    <div class="modal-header modal-xl">
+        <h4 class="modal-title pull-left">{{addAppointmentModel['id'] ? 'Edit' : 'Add'}} Appointment</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAddAppointment()">
+            <!--  -->
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div>
+        <div class="modal-body row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-heading">
+                                    <h4>Patient Details</h4>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="addAppointmentModel.patient">
+                                <div class="col-12 col-md-6 col-xl-6">
+                                    <div class="form-group local-forms">
+                                        <label for="gender" class="gen-label">Patient</label>
+                                        <ng-select class="form-control"
+                                            [items]="lstInventoryLookupsByKey['lstPatients']" bindLabel="label"
+                                            bindValue="value" placeholder="Keep it empty if new patient"
+                                            (ngModelChange)="selectPatient()"
+                                            [(ngModel)]="addAppointmentModel.patientId">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label for="name">Id </label>
+                                        <input class="form-control" type="text"
+                                            [(ngModel)]="addAppointmentModel.patient.id" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label for="name">Manual Id </label>
+                                        <input class="form-control" type="text"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.manualUserId">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label>Name(En) 1<span class="login-danger">*</span></label>
+                                        <input class="form-control" type="text"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.nameEn1">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label>Name(En) 2</label>
+                                        <input class="form-control" type="text"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.nameEn2">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label>Name(En) 3</label>
+                                        <input class="form-control" type="text"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.nameEn3">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label>Name(En) 4<span class="login-danger">*</span></label>
+                                        <input class="form-control" type="text"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.nameEn4">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label>Name(Ar) 1<span class="login-danger">*</span></label>
+                                        <input class="form-control" type="text"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.nameAr1">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label>Name(Ar) 2</label>
+                                        <input class="form-control" type="text"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.nameAr2">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label>Name(Ar) 3</label>
+                                        <input class="form-control" type="text"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.nameAr3">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label>Name(Ar) 4<span class="login-danger">*</span></label>
+                                        <input class="form-control" type="text"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.nameAr4">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label>Identity </label>
+                                        <input class="form-control" type="text"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.idNumber">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label>Phone 1 <span class="login-danger">*</span></label>
+                                        <input class="form-control" type="text"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.phone1">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label>Address Ar </label>
+                                        <input class="form-control" type="text"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.addressAr">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label>Address En</label>
+                                        <input class="form-control" type="text"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.addressEn">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label>Birth Date </label>
+                                        <input class="form-control" type="date"
+                                            [disabled]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.birthDate">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="form-group local-forms">
+                                        <label for="gender" class="gen-label">Gender</label>
+                                        <ng-select class="form-control" [items]="lstInventoryLookupsByKey['Gender']"
+                                            bindLabel="label" bindValue="value"
+                                            [readonly]="addAppointmentModel.patientId"
+                                            [(ngModel)]="addAppointmentModel.patient.genderId">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <hr>
+                            <div class="col-12">
+                                <div class="form-heading">
+                                    <h4>Appointment Details</h4>
+                                </div>
+                            </div>
+                            <ng-container>
+                                <div class="col-12 col-md-6 col-xl-6">
+                                    <div class="form-group local-forms">
+                                        <label for="gender" class="gen-label">Branch <span
+                                                class="login-danger">*</span></label>
+                                        <ng-select class="form-control" [items]="lstInventoryLookupsByKey['Branches']"
+                                            bindLabel="label" bindValue="value" [readonly]="true"
+                                            [(ngModel)]="addAppointmentModel.branchId">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-6">
+                                    <div class="form-group local-forms">
+                                        <label for="gender" class="gen-label">Department <span
+                                                class="login-danger">*</span></label>
+                                        <ng-select class="form-control" [clearable]="false"
+                                            [items]="lstInventoryLookupsByKey['Departments']" bindLabel="label"
+                                            bindValue="value" (ngModelChange)="selectedDepartmentChanged()"
+                                            [(ngModel)]="addAppointmentModel.departmentId">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-6">
+                                    <div class="form-group local-forms">
+                                        <label for="gender" class="gen-label">Clinic</label>
+                                        <ng-select class="form-control" [items]="lstInventoryLookupsByKey['Clinics']"
+                                            bindLabel="label" bindValue="value"
+                                            [(ngModel)]="addAppointmentModel.clinicId">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-6">
+                                    <div class="form-group local-forms">
+                                        <label for="gender" class="gen-label">Doctor Name <span
+                                                class="login-danger">*</span></label>
+                                        <ng-select class="form-control" [items]="lstInventoryLookupsByKey['lstDoctors']"
+                                            bindLabel="label" bindValue="value" [clearable]="false"
+                                            [(ngModel)]="addAppointmentModel.doctorId"
+                                            (ngModelChange)="getRelatedAppointment()">
+                                        </ng-select>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-xl-6 row p-0 m-0">
+                                    <div class="col-12 col-md-6 col-xl-6">
+                                        <div class="form-group local-forms  mb-2">
+                                            <label for="gender" class="gen-label">Date <span
+                                                    class="login-danger">*</span></label>
+                                            <input type="date" class="form-control"
+                                                [(ngModel)]="addAppointmentModel.startDate"
+                                                (ngModelChange)="AppointmentDatesChanged()">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-xl-6">
+                                        <div class="form-group local-forms  mb-2">
+                                            <label for="gender" class="gen-label">Time <span
+                                                    class="login-danger">*</span></label>
+                                            <!-- <input type="time" class="form-control"
+                                                [(ngModel)]="addAppointmentModel.startTime"
+                                                (ngModelChange)="AppointmentDatesChanged()"> -->
+                                            <ng-select class="form-control" [items]="lstDoctorAvailableAppointments"
+                                                bindLabel="label" bindValue="fromTime" [clearable]="false"
+                                                [(ngModel)]="addAppointmentModel.startTime" (ngModelChange)="AppointmentDatesChanged()">
+                                            </ng-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-12">
+                                        <ng-container *ngIf="!relatedDoctorAppointmentSetup">
+                                            <p class="hint danger">Appointment setup not set yet.</p>
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="relatedDoctorAppointmentSetup && relatedDoctorAppointmentSetup['relatedDayDetails']">
+                                            <div class="d-flex">
+                                                <p class="hint">
+                                                    {{relatedDoctorAppointmentSetup.currentDay.label}} |
+                                                    From: {{relatedDoctorAppointmentSetup.relatedDayDetails.fromTime}} -
+                                                    To: {{relatedDoctorAppointmentSetup.relatedDayDetails.toTime}}
+                                                    Break From:
+                                                    {{relatedDoctorAppointmentSetup.relatedDayDetails.breakOut}}
+                                                    -
+                                                    To: {{relatedDoctorAppointmentSetup.relatedDayDetails.breakIn}}
+                                                </p>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-6">
+                                    <div class="form-group local-forms">
+                                        <label for="name">Reason </label>
+                                        <input class="form-control" type="text"
+                                            [(ngModel)]="addAppointmentModel.reason">
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-xl-12">
+                                    <div class="form-group local-forms">
+                                        <label>Note</label>
+                                        <textarea class="form-control" rows="3"
+                                            [(ngModel)]="addAppointmentModel.note"></textarea>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" (click)="closeAddAppointment()">Close</button>
+            <button class="btn btn-primary" (click)="closeAddAppointment(true)">Submit</button>
+        </div>
+    </div>
+</ng-template>

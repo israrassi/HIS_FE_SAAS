@@ -1,0 +1,90 @@
+<div class="page-wrapper">
+    <div class="content">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a>Department </a></li>
+                        <li class="breadcrumb-item"><i class="feather icon-chevron-right"></i></li>
+                        <li class="breadcrumb-item active">Add Department</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-heading">
+                                    <h4>Department Details</h4>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <div class="form-group local-forms">
+                                    <label for="name">Id </label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.id" disabled>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-4"></div>
+                            <div class="col-12 col-md-6 col-xl-4"></div>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <div class="form-group local-forms">
+                                    <label>Name(En)<span class="login-danger">*</span></label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.nameEn">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <div class="form-group local-forms">
+                                    <label>Name(Ar) <span class="login-danger">*</span></label>
+                                    <input class="form-control" type="text" [(ngModel)]="modal.nameAr">
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <div class="form-group local-forms">
+                                    <label for="gender" class="gen-label">Department Type<span
+                                            class="login-danger">*</span></label>
+                                    <ng-select class="form-control"
+                                        [items]="lstInventoryLookupsByKey['DepartmentTypes']" bindLabel="label"
+                                        bindValue="value" [(ngModel)]="modal.departmentTypeId">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <div class="form-group local-forms">
+                                    <label for="gender" class="gen-label">Visit Type</label>
+                                    <ng-select class="form-control" [items]="lstInventoryLookupsByKey['VisitTypes']"
+                                        bindLabel="label" bindValue="value" [(ngModel)]="modal.visitTypeId">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <div class="form-group local-forms">
+                                    <label for="gender" class="gen-label">Branches</label>
+                                    <ng-select class="form-control" [items]="lstInventoryLookupsByKey['Branches']" [multiple]="true"
+                                        bindLabel="label" bindValue="value" [(ngModel)]="modal._lstDepartmentBranches">
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="doctor-submit text-end">
+                                    <button type="submit" class="btn btn-primary submit-form me-2" (click)="save()">{{Id
+                                        ? 'Save' : 'Add'}}</button>
+                                    <button type="submit" class="btn btn-primary cancel-form"
+                                        (click)="back()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

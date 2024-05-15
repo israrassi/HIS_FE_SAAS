@@ -1,0 +1,203 @@
+<div class="page-wrapper">
+    <div class="content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a>Appointments </a></li>
+                        <li class="breadcrumb-item"><i class="feather icon-chevron-right"></i></li>
+                        <li class="breadcrumb-item active">Appointments Setup</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+
+            <div class="col-sm-3">
+                <div class="card card-table show-entire">
+                    <div class="card-body">
+                        <div class="page-table-header mb-2">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="doctor-table-blk">
+                                        <h3 class="pb-3 w-100">Department List</h3>
+
+                                        <div class="form-group local-forms w-100 m-0">
+                                            <label for="gender" class="gen-label">Branche</label>
+                                            <ng-select class="form-control w-100"
+                                                [items]="lstInventoryLookupsByKey['Branches']" bindLabel="label"
+                                                aria-placeholder="Select Branch" bindValue="value"
+                                                [formControl]="branchIdFilter">
+                                            </ng-select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table matSort (matSortChange)="sortData($event)"
+                                    class="table border-0 custom-table comman-table datatable mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th mat-sort-header="enName">Name</th>
+                                            <!-- <th mat-sort-header="arName">Ar Name</th> -->
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let r of lstDepartments"
+                                            [ngClass]="{'s-td':selectedDepartment ? selectedDepartment.value == r.value : false}"
+                                            (click)="selectDepartment(r)">
+                                            <td>{{r.label}}</td>
+                                            <td class="text-end">
+                                                <div class="dropdown dropdown-action">
+                                                    <a class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
+                                                        aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <!-- <a class="dropdown-item" (click)="openAddCategory(r)"><i
+                                                                class="fa-solid fa-pen-to-square m-r-5"></i> Edit</a> -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="card card-table show-entire">
+                    <div class="card-body">
+                        <div class="page-table-header mb-2">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="doctor-table-blk">
+                                        <h3 class="pb-3 w-100">Appointment Setup Details </h3>
+                                        <div class="doctor-search-blk">
+                                            <!-- <div class="top-nav-search table-search-blk m-0">
+                                                <input class="form-control" placeholder="Search here">
+                                                <a class="btn"><img src="assets/img/icons/search-normal.svg" alt=""></a>
+                                            </div> -->
+                                            <!-- <div class="add-group" *ngIf="selectedCategory">
+                                                <a class="btn btn-primary add-pluss ms-2" (click)="openAddLookup()"><img
+                                                        src="assets/img/icons/plus.svg" alt=""></a>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label for="gender" class="gen-label">Department</label>
+                                        <ng-select class="form-control" [items]="lstDepartments" bindLabel="label"
+                                            bindValue="value" [(ngModel)]="model.departmentId" [readonly]="true">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label for="gender" class="gen-label">Doctor</label>
+                                        <ng-select class="form-control" [items]="lstDoctors" bindLabel="label"
+                                            bindValue="value" [(ngModel)]="model.doctorId"
+                                            (ngModelChange)="selectDoctor()">
+                                        </ng-select>
+                                    </div>
+                                </div>
+
+                                <div></div>
+                                <ng-container *ngIf="model.doctorId">
+                                    <div class="col-12 col-md-6 col-xl-4">
+                                        <div class="form-group local-forms">
+                                            <label>Duration In Minute </label>
+                                            <input class="form-control" type="number" [(ngModel)]="model.durationInMin">
+                                            <p class="hint">* Be aware to add break between session and next session</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-xl-4">
+                                        <div class="card-header d-flex align-items-center">
+                                            <div class="status-toggle d-flex align-items-center">
+                                                <input type="checkbox" id="status_4" class="check" checked=""
+                                                    [(ngModel)]="model.allowOverload">
+                                                <label for="status_4" class="checktoggle">checkbox</label>
+                                            </div>
+                                            <h5 class="card-title" style="margin-left: 10px;">Allow Overload</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-xl-4 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary submit-form me-2"
+                                            style=" width: 150px; height: 35px; " (click)="save()">{{model.id
+                                            ? 'Save' : 'Add'}}</button>
+                                    </div>
+                                </ng-container>
+
+                            </div>
+                            <div class="table-responsive">
+                                <table matSort (matSortChange)="sortData($event)"
+                                    class="table border-0 custom-table comman-table datatable mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th mat-sort-header="id">#</th>
+                                            <th mat-sort-header="Active">Active</th>
+                                            <th mat-sort-header="inDay">Day</th>
+                                            <th mat-sort-header="fromTime">From Time</th>
+                                            <th mat-sort-header="toTime">To Time</th>
+                                            <th mat-sort-header="breakIn">Break In</th>
+                                            <th mat-sort-header="breakOut">Break Out</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let r of model.lstDetails;let i= index">
+                                            <td>{{i+1}}</td>
+                                            <td>
+                                                <input type="checkbox" id="{{'asd' + i}}" value="something"
+                                                    class="form-check-input c-b-l" [(ngModel)]="r.isActive">
+                                            </td>
+                                            <td>
+                                                <ng-select class="form-control"
+                                                    [items]="thirdPartytoastyService.lstDaysLkps" bindLabel="label"
+                                                    bindValue="value" [(ngModel)]="r.inDay">
+                                                </ng-select>
+                                            </td>
+                                            <td>
+                                                <input type="time" class="form-control" [(ngModel)]="r['fromTime']">
+                                            </td>
+                                            <td>
+                                                <input type="time" class="form-control" [(ngModel)]="r['toTime']">
+                                            </td>
+                                            <td>
+                                                <input type="time" class="form-control" [(ngModel)]="r['breakIn']">
+                                            </td>
+                                            <td>
+                                                <input type="time" class="form-control" [(ngModel)]="r['breakOut']">
+                                            </td>
+                                            <!-- <td class="text-end">
+                                                <div class="dropdown dropdown-action">
+                                                    <a class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-v"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a class="dropdown-item" (click)="openAddLookup(r)">
+                                                            <i class="fa-solid fa-pen-to-square m-r-5"></i> Edit
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
